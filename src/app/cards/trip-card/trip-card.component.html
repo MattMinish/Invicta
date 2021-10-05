@@ -5,16 +5,16 @@
             <input type="title" class="form-control" id="trip-name" placeholder="Bachelor's Party Trip">
         </div>
         <label for="current-country">Current Country</label>
-        <select class="form-control" id="current-country">
-            <option>USA</option>
-            <option>Mexico</option>
-            <option>Canada</option>
+        <select class="form-control" id="current-country" [(ngModel)]="countries">
+            <option *ngFor="let country_item of countries">
+                {{country_item}}
+            </option>
         </select>
         <label for="current-country">Destination</label>
-        <select class="form-control">
-            <option>USA</option>
-            <option>Mexico</option>
-            <option>Canada</option>
+        <select class="form-control" id="current-destination">
+            <option *ngFor="let country_item of countries">
+                {{country_item}}
+            </option>
         </select>
     </div>
 </div>
