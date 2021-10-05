@@ -5,7 +5,7 @@
             <input type="title" class="form-control" id="trip-name" placeholder="Bachelor's Party Trip">
         </div>
         <label for="current-country">Current Country</label>
-        <select class="form-control"  id="current-country">
+        <select class="form-control" id="current-country">
             <option>USA</option>
             <option>Mexico</option>
             <option>Canada</option>
@@ -16,5 +16,17 @@
             <option>Mexico</option>
             <option>Canada</option>
         </select>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body">
+        <label for="user-trips">Your Trips</label>
+        <div class="form-group">
+            <select class="form-control" id="current-trips" [(ngModel)]="trips">
+                <option *ngFor="let trip_item of trips">
+                    {{trip_item}}
+                </option>
+            </select>
+        </div>
     </div>
 </div>
