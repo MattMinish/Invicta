@@ -258,6 +258,6 @@ export class TripCardComponent implements OnInit {
       'Zimbabwe',
       'Åland Islands'];
 
-  public trips: any = ['Cancun', 'New York', 'Paris'];
+  public trips: any = ['Cancun', 'New York', 'Paris' , 'Miami'];
 
 }
