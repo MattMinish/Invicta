@@ -11,10 +11,14 @@ import { FormsModule } from '@angular/forms';
 import { TripCardComponent } from './cards/trip-card/trip-card.component';
 import { TrippageComponent } from './trippage/trippage.component';
 
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { environment } from 'src/environments/environment';
+
 @NgModule({
   declarations: [
     AppComponent,
-    
     HomepageComponent,
     NavbarComponent,
     AboutComponent,
@@ -25,7 +29,10 @@ import { TrippageComponent } from './trippage/trippage.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireAuthModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
