@@ -1,7 +1,7 @@
 <div class="card">
     <div *ngIf="trips.length > 0;else noTrips">
         <ul *ngFor="let trip of trips">
-            <div class="card">
+            <div class="card" (dblclick)="deleteTrip($event, trip)">
                 <h2>{{trip.tripName}}</h2>
                 <p>Destination: {{trip.destination}}</p>
                 <p>Start Location: {{trip.startLocation}}</p>

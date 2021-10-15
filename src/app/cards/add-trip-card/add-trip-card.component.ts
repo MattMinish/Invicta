@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TripsService } from 'src/app/services/trips.service';
+import { Trips } from 'src/app/models/trips';
 
 @Component({
   selector: 'app-add-trip-card',
@@ -7,10 +8,32 @@ import { TripsService } from 'src/app/services/trips.service';
   styleUrls: ['./add-trip-card.component.css']
 })
 export class AddTripCardComponent implements OnInit {
+  trip : Trips = {
+    destination : "",
+    endDate : "",
+    startDate : "",
+    startLocation : "",
+    tripName : "",
+    id : ""
+  }
 
   constructor(public tripService: TripsService) { }
 
   ngOnInit(): void {
+  }
+
+  onSubmit(){
+    if(this.trip.destination != " " && this.trip.startLocation != " "
+      && this.trip.startLocation != " "){
+        this.tripService.addTrip(this.trip);
+        this.trip = {
+          destination : "",
+          endDate : "",
+          startDate : "",
+          startLocation : "",
+          tripName : "",
+        }
+      }
   }
 
 

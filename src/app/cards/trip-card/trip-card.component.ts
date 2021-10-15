@@ -19,5 +19,8 @@ export class TripCardComponent implements OnInit {
     });
   }
 
+  deleteTrip(event : Event, trip : Trips){
+    this.tripService.deleteTrip(trip);
+  }
 
 }
