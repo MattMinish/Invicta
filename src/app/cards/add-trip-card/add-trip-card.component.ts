@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TripsService } from 'src/app/services/trips.service';
 import { Trips } from 'src/app/models/trips';
+import {NgbDate, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'app-add-trip-card',
@@ -16,8 +18,16 @@ export class AddTripCardComponent implements OnInit {
     tripName : "",
     id : ""
   }
+  hoveredDate: NgbDate | null = null;
 
-  constructor(public tripService: TripsService) { }
+  fromDate: NgbDate;
+  toDate: NgbDate | null = null;
+
+
+  constructor(public tripService: TripsService, calendar: NgbCalendar) { 
+    this.fromDate = calendar.getToday();
+    this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
+  }
 
   ngOnInit(): void {
   }
@@ -25,6 +35,8 @@ export class AddTripCardComponent implements OnInit {
   onSubmit(){
     if(this.trip.destination != " " && this.trip.startLocation != " "
       && this.trip.startLocation != " "){
+        this.trip.startDate = `${this.fromDate.month}/${this.fromDate.day}/${this.fromDate.year}`;
+        this.trip.endDate = `${this.toDate?.month}/${this.toDate?.day}/${this.toDate?.year}`;
         this.tripService.addTrip(this.trip);
         this.trip = {
           destination : "",
@@ -34,6 +46,29 @@ export class AddTripCardComponent implements OnInit {
           tripName : "",
         }
       }
+  }
+
+  onDateSelection(date: NgbDate) {
+    if (!this.fromDate && !this.toDate) {
+      this.fromDate = date;
+    } else if (this.fromDate && !this.toDate && date.after(this.fromDate)) {
+      this.toDate = date;
+    } else {
+      this.toDate = null;
+      this.fromDate = date;
+    }
+  }
+
+  isHovered(date: NgbDate) {
+    return this.fromDate && !this.toDate && this.hoveredDate && date.after(this.fromDate) && date.before(this.hoveredDate);
+  }
+
+  isInside(date: NgbDate) {
+    return this.toDate && date.after(this.fromDate) && date.before(this.toDate);
+  }
+
+  isRange(date: NgbDate) {
+    return date.equals(this.fromDate) || (this.toDate && date.equals(this.toDate)) || this.isInside(date) || this.isHovered(date);
   }
 
 

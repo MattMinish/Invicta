@@ -17,6 +17,7 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { environment } from 'src/environments/environment';
 import { AddTripCardComponent } from './cards/add-trip-card/add-trip-card.component';
 import { TripsService } from './services/trips.service';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { TripsService } from './services/trips.service';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
+    NgbModule,
   ],
   providers: [TripsService],
   bootstrap: [AppComponent]

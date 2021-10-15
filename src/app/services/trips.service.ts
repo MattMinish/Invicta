@@ -39,6 +39,11 @@ export class TripsService {
     this.tripDoc.delete();
   }
 
+  updateTrip(trip :Trips){
+    this.tripDoc = this.afs.doc(`trips/${trip.id}`);
+    this.tripDoc.update(trip);
+  }
+
 
 }
 
