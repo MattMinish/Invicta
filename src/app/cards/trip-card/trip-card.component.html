@@ -1,32 +1,16 @@
 <div class="card">
-    <div class="card-body">
-        <div class="form-group">
-            <label for="trip-name">Trip Name</label>
-            <input type="title" class="form-control" id="trip-name" placeholder="Bachelor's Party Trip">
-        </div>
-        <label for="current-country">Current Country</label>
-        <select class="form-control" id="current-country" [(ngModel)]="countries">
-            <option *ngFor="let country_item of countries">
-                {{country_item}}
-            </option>
-        </select>
-        <label for="current-country">Destination</label>
-        <select class="form-control" id="current-destination">
-            <option *ngFor="let country_item of countries">
-                {{country_item}}
-            </option>
-        </select>
+    <div *ngIf="trips.length > 0;else noTrips">
+        <ul *ngFor="let trip of trips">
+            <div class="card">
+                <h2>{{trip.tripName}}</h2>
+                <p>Destination: {{trip.destination}}</p>
+                <p>Start Location: {{trip.startLocation}}</p>
+                <p>Trip Dates: {{trip.startDate}} - {{trip.endDate}}</p>
+            </div>
+        </ul>
     </div>
 </div>
-<div class="card">
-    <div class="card-body">
-        <label for="user-trips">Your Trips</label>
-        <div class="form-group">
-            <select class="form-control" id="current-trips" [(ngModel)]="trips">
-                <option *ngFor="let trip_item of trips">
-                    {{trip_item}}
-                </option>
-            </select>
-        </div>
-    </div>
-</div>
+
+<ng-template #noTrips>
+    <p>There are no trips.</p>
+</ng-template>

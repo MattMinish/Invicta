@@ -15,6 +15,8 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { environment } from 'src/environments/environment';
+import { AddTripCardComponent } from './cards/add-trip-card/add-trip-card.component';
+import { TripsService } from './services/trips.service';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { environment } from 'src/environments/environment';
     AboutComponent,
     LoginComponent,
     TripCardComponent,
-    TrippageComponent
+    TrippageComponent,
+    AddTripCardComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +37,7 @@ import { environment } from 'src/environments/environment';
     AngularFirestoreModule,
     AngularFireAuthModule,
   ],
-  providers: [],
+  providers: [TripsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
