@@ -1,7 +1,7 @@
 /// <reference types="Cypress" />
 
 describe('Home Page', () => {
-    it('Testing all navigation links', () => {
+    it('Nav bar links', () => {
         
         cy.visit('/'); // go to the home page
 

@@ -1,7 +1,7 @@
 /// <reference types="Cypress" />
 
 describe('About Page', () => {
-    it('Testing all navigation links', () => {
+    it('Nav bar links', () => {
 
         cy.visit('/about'); // go to the home page
 
@@ -20,7 +20,7 @@ describe('About Page', () => {
         cy.location('pathname').should('eq', '/login')
         cy.go('back')
     });
-    it('Testing Image Hover', () => {
+    it('Image Hover', () => {
 
         cy.visit('/about'); // go to the home page
 

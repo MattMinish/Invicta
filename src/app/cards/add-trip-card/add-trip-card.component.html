@@ -17,7 +17,7 @@
                     {{country_item}}
                 </option>
             </select>
-            <ngb-datepicker #dp (dateSelect)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t" outsideDays="hidden">
+            <ngb-datepicker #dp (dateSelect)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t" outsideDays="hidden" name="calendar">
             </ngb-datepicker>
             
             <ng-template #t let-date let-focused="focused">
