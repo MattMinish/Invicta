@@ -18,6 +18,7 @@ import { environment } from 'src/environments/environment';
 import { AddTripCardComponent } from './cards/add-trip-card/add-trip-card.component';
 import { TripsService } from './services/trips.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AccountpageComponent } from './accountpage/accountpage.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     LoginComponent,
     TripCardComponent,
     TrippageComponent,
-    AddTripCardComponent
+    AddTripCardComponent,
+    AccountpageComponent
   ],
   imports: [
     BrowserModule,

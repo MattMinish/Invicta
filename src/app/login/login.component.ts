@@ -10,17 +10,13 @@ import { UserService } from '../services/user.service';
 })
 export class LoginComponent implements OnInit, OnDestroy {
 
-
   /** Keeps the subscription to the user object */
-  /** Keeps the subscription to the user object */
-
-
   private userSubscription!: Subscription;
 
   constructor(public userService: UserService, private router: Router) { }
 
   ngOnInit() {
-    // If a user comes back from this subscription, forward them on to the chirp page
+    // If a user comes back from this subscription
     this.userSubscription = this.userService.user$.subscribe(user => {
       if (user) {
         this.router.navigate(['login']);
