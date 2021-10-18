@@ -4,22 +4,29 @@
   </div>
 </header>
 
-<div class="container loginForm">
-  <form id="Adopt-param" class="mb-2">
-    <div class=" form-group">
-      <label for="username" id="username-label">Username</label>
-      <input [(ngModel)]="username" type="text" class="form-control" name="username" id="username"
-        placeholder="username">
-    </div>
-    <div class="form-group">
-      <label for="password" id="password-label">Password</label>
-      <input [(ngModel)]="password" type="text" class="form-control" name="password" id="password"
-        placeholder="password">
-    </div>
+<div class="container">
+  <div *ngIf="userService.user$ | async; then authenticated else guest">
+    <!-- template will replace this div -->
+  </div>
 
-    <div class="form-group">
-
-      <button type="submit" class="btn btn-primary">login</button>
+  <!-- User logged in -->
+  <ng-template #authenticated>
+    <div *ngIf="userService.user$ | async as user">
+      <h3>Howdy, {{ user.displayName }}</h3>
+      <p>UID: {{ user.uid }}</p>
+      <button (click)="userService.signOut()">Logout</button>
     </div>
-  </form>
+  </ng-template>
+
+    <!-- User NOT logged in -->
+    <ng-template #guest>
+      <h3>Howdy, GUEST</h3>
+      <p>Login to get started...</p>
+  
+      <button (click)="userService.googleSignin()">
+        <i class="fa fa-google"></i> Log in with Google
+      </button>
+  
+    </ng-template>
+
 </div>
