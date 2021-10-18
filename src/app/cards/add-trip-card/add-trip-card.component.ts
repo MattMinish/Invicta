@@ -16,7 +16,6 @@ export class AddTripCardComponent implements OnInit {
     startDate : "",
     startLocation : "",
     tripName : "",
-    id : ""
   }
   hoveredDate: NgbDate | null = null;
 

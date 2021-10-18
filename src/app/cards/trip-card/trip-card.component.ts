@@ -51,7 +51,6 @@ export class TripCardComponent implements OnInit {
       startDate : "",
       startLocation : "",
       tripName : "",
-      id : ""
     }
   }
   
