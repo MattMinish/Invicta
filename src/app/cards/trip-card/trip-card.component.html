@@ -1,5 +1,4 @@
-<div class="card">
-    <div *ngIf="trips.length > 0;else noTrips">
+    <div *ngIf="trips.length > 0;else noTrips" class="p-2">
         <ul *ngFor="let trip of trips">
             <div class="card">
                 <h2>{{trip.tripName}}</h2>
@@ -33,7 +32,6 @@
             </div>
         </ul>
     </div>
-</div>
 
 <ng-template #noTrips>
     <p>There are no trips.</p>

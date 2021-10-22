@@ -1,9 +1,9 @@
-<div class="card">
+<div class="card card--inverted">
     <div class="card-body">
         <form (ngSubmit)="onSubmit()">
             <div class="form-group">
-                <label for="trip-name">Trip Name</label>
-                <input type="text" class="form-control" id="trip-name" required placeholder="Bachelor's Party Trip" [(ngModel)]="trip.tripName" name="tripName">
+                <label for="trip-name input__label">Trip Name</label>
+                <input type="text" class="form-control input__field" id="trip-name" required placeholder="Bachelor's Party Trip" [(ngModel)]="trip.tripName" name="tripName">
             </div>
             <label for="current-country">Current Country</label>
             <select class="form-control" id="current-country" [(ngModel)]="trip.startLocation" name="startLocation"> 
@@ -30,7 +30,7 @@
                 {{ date.day }}
               </span>
             </ng-template>
-            
+            <br>
             <input type="submit" value="Submit" class="btn btn-dark">
         </form>
     </div>
