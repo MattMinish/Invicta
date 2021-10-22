@@ -17,6 +17,7 @@ import 'firebase/compat/firestore';
 export class UserService {
 
   user$: Observable<User | null | undefined>;
+  userID : string = "";
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -28,6 +29,7 @@ export class UserService {
         switchMap(user => {
             // Logged in
           if (user) {
+            this.userID = user.uid;
             return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
           } else {
             // Logged out
@@ -35,6 +37,10 @@ export class UserService {
           }
         })
       );
+  }
+
+  getUserID(){
+    return this.userID;
   }
 
   /** Authenticates the user with Google */

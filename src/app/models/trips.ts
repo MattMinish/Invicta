@@ -5,4 +5,5 @@ export interface Trips {
     endDate?:string;
     startDate?:string;
     startLocation?:string;
+    userID?:string;
 }
