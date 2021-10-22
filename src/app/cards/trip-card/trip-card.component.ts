@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { TripsService } from 'src/app/services/trips.service';
 import { Trips } from 'src/app/models/trips';
+import { Observable, Subscription } from 'rxjs';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
+import { UserService } from 'src/app/services/user.service';
+import { User } from 'src/app/models/user';
 
 
 @Component({
@@ -17,14 +21,21 @@ export class TripCardComponent implements OnInit {
     startDate : "",
     startLocation : "",
     tripName : "",
-    id : ""
+    id : "",
+    userID : ""
+  }
+  public user$!: Observable<User | null | undefined>;
+  userUID : string = "";
+
+  constructor(public tripService: TripsService, public userService: UserService, private afs: AngularFirestore) { 
+    this.userUID = userService.getUserID();
+    this.tripToEdit.userID = this.userUID;
   }
 
-  constructor(public tripService: TripsService) { }
-
   ngOnInit(): void {
+    this.userUID = this.userService.getUserID();
     this.tripService.getTrips().subscribe(trips => { 
-      this.trips = trips;
+      this.trips = trips.filter(trip => trip.userID == this.userUID);      
     });
   }
 

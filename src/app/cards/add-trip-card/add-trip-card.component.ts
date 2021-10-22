@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TripsService } from 'src/app/services/trips.service';
 import { Trips } from 'src/app/models/trips';
 import {NgbDate, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
+import { UserService } from 'src/app/services/user.service';
 
 
 @Component({
@@ -16,16 +17,20 @@ export class AddTripCardComponent implements OnInit {
     startDate : "",
     startLocation : "",
     tripName : "",
+    userID : ""
   }
   hoveredDate: NgbDate | null = null;
 
   fromDate: NgbDate;
   toDate: NgbDate | null = null;
+  userUID : string = "";
 
 
-  constructor(public tripService: TripsService, calendar: NgbCalendar) { 
+  constructor(public tripService: TripsService, calendar: NgbCalendar, public userService: UserService) { 
     this.fromDate = calendar.getToday();
     this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
+    this.userUID = userService.getUserID();
+    this.trip.userID = this.userUID;
   }
 
   ngOnInit(): void {
