@@ -25,8 +25,8 @@ describe('Trip Page', () => {
         cy.visit('/trips');
 
         cy.get('input[name=tripName]')
-            .type('Super Epic Vacation Trip!')
-            .should('have.value', 'Super Epic Vacation Trip!')
+            .type('Cypress Test Trip')
+            .should('have.value', 'Cypress Test Trip')
 
         cy.get('select[name=startLocation]')
             .select('Aruba')
@@ -36,14 +36,26 @@ describe('Trip Page', () => {
             .select('Sweden')
             .should('have.value', 'Sweden')
 
-        // cy.get('ngb-datepicker[name=calendar]')
-        //     .contains('24')
-        //     .select('24').click({ force: true })
-        // cy.get('ngb-datepicker[name=calendar]')
-        //     .get('ngb-dp-day[label=Sunday, October 24, 2021]')
-        //     .select('24').click({ force: true })
+        cy.get('ngb-datepicker[name=calendar]')
+            .get('*[class^="ngb-dp-content ngb-dp-months"]')
+            .contains('24').click({ force: true })
+            .get('*[class^="ngb-dp-content ngb-dp-months"]')
+            .contains('27').click({ force: true })
 
-        // cy.get('ngb-datepicker[name=calendar]')
-        //     .select('28').click({ force: true })
+        cy.get('input[name=submitButton]')
+            .click({ force: true })
+
+        cy.contains('Cypress Test Trip')
+    });
+
+    it('Removing Trip', () => {
+
+        cy.visit('/trips');
+
+        cy.get('*[class^="container trips"]')
+            .get('div').contains('Cypress Test Trip')
+                .contains('*[class^="fa fa-pencil"]').click({ force: true })
+            //.get('h2').contains('Cypress Test Trip')
+            //.get('*[class^="fa fa-pencil"]').click({ force: true })
     });
 });

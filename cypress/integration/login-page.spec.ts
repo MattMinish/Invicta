@@ -21,19 +21,19 @@ describe('Login Page', () => {
         cy.go('back')
     });
 
-    it('User Login', () => {
+    // it('User Login', () => {
 
-        cy.visit('/login');
+    //     cy.visit('/login');
 
-        cy.get('input[name=username]')
-            .type('admin')
-            .should('have.value', 'admin')
+    //     cy.get('input[name=username]')
+    //         .type('admin')
+    //         .should('have.value', 'admin')
 
-        cy.get('input[name=password]')
-            .type('password')
-            .should('have.value', 'password')
+    //     cy.get('input[name=password]')
+    //         .type('password')
+    //         .should('have.value', 'password')
 
-        cy.contains('login').click( {force: true })
+    //     cy.contains('login').click( {force: true })
 
-    });
+    // });
 });
