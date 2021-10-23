@@ -8,4 +8,10 @@
     <h3>Howdy, {{ user.displayName }}</h3>
     <p>Email: {{ user.email }} </p>
     <p>UID: {{ user.uid }}</p>
+    <button (click)="sendMessage('dog')">
+        Send Email
+    </button>
+    <!-- <button (click)="sendMessage('h')">
+        Send Email
+    </button> -->
 </div>

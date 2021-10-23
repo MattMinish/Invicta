@@ -20,6 +20,9 @@ import { TripsService } from './services/trips.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AccountpageComponent } from './accountpage/accountpage.component';
 
+import { HttpClientModule } from '@angular/common/http'
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,6 +42,7 @@ import { AccountpageComponent } from './accountpage/accountpage.component';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
+    HttpClientModule,
     NgbModule,
   ],
   providers: [TripsService],
