@@ -4,6 +4,7 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { Trips } from '../models/trips';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
 
 
 @Injectable({
@@ -13,9 +14,10 @@ export class TripsService {
   tripsCollection: AngularFirestoreCollection<Trips>;
   trips : Observable<Trips[]>;
   tripDoc: AngularFirestoreDocument<Trips>;
+  countries : any = [];
 
 
-  constructor(public afs: AngularFirestore) { 
+  constructor(public afs: AngularFirestore, private http: HttpClient) { 
     this.tripsCollection = this.afs.collection<Trips>('trips', ref => ref.orderBy('tripName', 'asc'));
     this.trips = this.tripsCollection.snapshotChanges()
     .pipe(map(changes => changes.map(a => {
@@ -24,6 +26,12 @@ export class TripsService {
       return {id, ...data};
     })));
     this.tripDoc = this.afs.doc(`trips/1`);
+    this.http.get<any>('https://countriesnow.space/api/v0.1/countries/info?returns=currency,flag,unicodeFlag,dialCode').subscribe(data => {
+      console.log(data);
+      data.data.forEach((item: { name: any; }) => {
+        this.countries.push(item.name)
+      })
+    })
   }
 
   getTrips(){

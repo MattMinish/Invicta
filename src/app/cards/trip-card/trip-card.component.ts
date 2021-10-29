@@ -5,6 +5,7 @@ import { Observable, Subscription } from 'rxjs';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -14,301 +15,72 @@ import { User } from 'src/app/models/user';
 })
 export class TripCardComponent implements OnInit {
   trips: Trips[] = [];
-  editState : boolean = false;
-  tripToEdit : Trips = {
-    destination : "",
-    endDate : "",
-    startDate : "",
-    startLocation : "",
-    tripName : "",
-    id : "",
-    userID : ""
+  editState: boolean = false;
+  tripToEdit: Trips = {
+    destination: "",
+    endDate: "",
+    startDate: "",
+    startLocation: "",
+    tripName: "",
+    id: "",
+    userID: "",
+    destinationImg: "",
   }
+  public countries: any = [];
   public user$!: Observable<User | null | undefined>;
-  userUID : string = "";
+  userUID: string = "";
 
-  constructor(public tripService: TripsService, public userService: UserService, private afs: AngularFirestore) { 
+  constructor(public tripService: TripsService, public userService: UserService, private afs: AngularFirestore, private http: HttpClient) {
     this.userUID = userService.getUserID();
     this.tripToEdit.userID = this.userUID;
   }
 
   ngOnInit(): void {
     this.userUID = this.userService.getUserID();
-    this.tripService.getTrips().subscribe(trips => { 
-      this.trips = trips.filter(trip => trip.userID == this.userUID);      
+    this.tripService.getTrips().subscribe(trips => {
+      this.trips = trips.filter(trip => trip.userID == this.userUID);
+      this.trips.forEach(trip => {
+        if (trip.destinationImg == "") {
+          this.http.post<any>('https://countriesnow.space/api/v0.1/countries/flag/images', { country: trip.destination }).subscribe(data => {
+            console.log(data);
+            trip.destinationImg = data.data.flag;
+            this.tripService.updateTrip(trip);
+          })
+        }
+      })
     });
+    this.countries = this.tripService.countries;
   }
 
-  deleteTrip(event : Event, trip : Trips){
+  deleteTrip(event: Event, trip: Trips) {
     this.clearState();
     this.tripService.deleteTrip(trip);
   }
 
-  editTrip(event : Event, trip : Trips){
+  editTrip(event: Event, trip: Trips) {
     this.editState = true;
-    this.tripToEdit= trip;
+    this.tripToEdit = trip;
   }
 
-  updateTrip(trip : Trips){
-    this.tripService.updateTrip(trip);
-    this.clearState();
+  updateTrip(trip: Trips) {
+    this.http.post<any>('https://countriesnow.space/api/v0.1/countries/flag/images', { country: trip.destination }).subscribe(data => {
+      console.log(data);
+      trip.destinationImg = data.data.flag;
+      this.tripService.updateTrip(trip);
+      this.clearState();
+    })
   }
 
-  clearState(){
+  clearState() {
     this.editState = false;
     this.tripToEdit = {
-      destination : "",
-      endDate : "",
-      startDate : "",
-      startLocation : "",
-      tripName : "",
+      destination: "",
+      endDate: "",
+      startDate: "",
+      startLocation: "",
+      tripName: "",
+      destinationImg: "",
     }
   }
-  
-
-  public countries: any =
-  ['Afghanistan', 'Albania', 'Algeria',
-    'American Samoa', 'Andorra', 'Angola',
-    'Anguilla', 'Antarctica', 'Antigua and Barbuda',
-    'Argentina',
-    'Armenia',
-    'Aruba',
-    'Australia',
-    'Austria',
-    'Azerbaijan',
-    'Bahamas (the)',
-    'Bahrain',
-    'Bangladesh',
-    'Barbados',
-    'Belarus',
-    'Belgium',
-    'Belize',
-    'Benin',
-    'Bermuda',
-    'Bhutan',
-    'Bolivia (Plurinational State of)',
-    'Bonaire, Sint Eustatius and Saba',
-    'Bosnia and Herzegovina',
-    'Botswana',
-    'Bouvet Island',
-    'Brazil',
-    'British Indian Ocean Territory (the)',
-    'Brunei Darussalam',
-    'Bulgaria',
-    'Burkina Faso',
-    'Burundi',
-    'Cabo Verde',
-    'Cambodia',
-    'Cameroon',
-    'Canada',
-    'Cayman Islands (the)',
-    'Central African Republic (the)',
-    'Chad',
-    'Chile',
-    'China',
-    'Christmas Island',
-    'Cocos (Keeling) Islands (the)',
-    'Colombia',
-    'Comoros (the)',
-    'Congo (the Democratic Republic of the)',
-    'Congo (the)',
-    'Cook Islands (the)',
-    'Costa Rica',
-    'Croatia',
-    'Cuba',
-    'Curaçao',
-    'Cyprus',
-    'Czechia',
-    'Côte dIvoire',
-    'Denmark',
-    'Djibouti',
-    'Dominica',
-    'Dominican Republic (the)',
-    'Ecuador',
-    'Egypt',
-    'El Salvador',
-    'Equatorial Guinea',
-    'Eritrea',
-    'Estonia',
-    'Eswatini',
-    'Ethiopia',
-    'Falkland Islands (the) [Malvinas]',
-    'Faroe Islands (the)',
-    'Fiji',
-    'Finland',
-    'France',
-    'French Guiana',
-    'French Polynesia',
-    'French Southern Territories (the)',
-    'Gabon',
-    'Gambia (the)',
-    'Georgia',
-    'Germany',
-    'Ghana',
-    'Gibraltar',
-    'Greece',
-    'Greenland',
-    'Grenada',
-    'Guadeloupe',
-    'Guam',
-    'Guatemala',
-    'Guernsey',
-    'Guinea',
-    'Guinea-Bissau',
-    'Guyana',
-    'Haiti',
-    'Heard Island and McDonald Islands',
-    'Holy See (the)',
-    'Honduras',
-    'Hong Kong',
-    'Hungary',
-    'Iceland',
-    'India',
-    'Indonesia',
-    'Iran (Islamic Republic of)',
-    'Iraq',
-    'Ireland',
-    'Isle of Man',
-    'Israel',
-    'Italy',
-    'Jamaica',
-    'Japan',
-    'Jersey',
-    'Jordan',
-    'Kazakhstan',
-    'Kenya',
-    'Kiribati',
-    'Korea (the Democratic Peoples Republic of) ',
-    'Korea (the Republic of)',
-    'Kuwait',
-    'Kyrgyzstan',
-    'Lao Peoples Democratic Republic(the)',
-    'Latvia',
-    'Lebanon',
-    'Lesotho',
-    'Liberia',
-    'Libya',
-    'Liechtenstein',
-    'Lithuania',
-    'Luxembourg',
-    'Macao',
-    'Madagascar',
-    'Malawi',
-    'Malaysia',
-    'Maldives',
-    'Mali',
-    'Malta',
-    'Marshall Islands (the)',
-    'Martinique',
-    'Mauritania',
-    'Mauritius',
-    'Mayotte',
-    'Mexico',
-    'Micronesia (Federated States of)',
-    'Moldova (the Republic of)',
-    'Monaco',
-    'Mongolia',
-    'Montenegro',
-    'Montserrat',
-    'Morocco',
-    'Mozambique',
-    'Myanmar',
-    'Namibia',
-    'Nauru',
-    'Nepal',
-    'Netherlands (the)',
-    'New Caledonia',
-    'New Zealand',
-    'Nicaragua',
-    'Niger (the)',
-    'Nigeria',
-    'Niue',
-    'Norfolk Island',
-    'Northern Mariana Islands (the)',
-    'Norway',
-    'Oman',
-    'Pakistan',
-    'Palau',
-    'Palestine, State of',
-    'Panama',
-    'Papua New Guinea',
-    'Paraguay',
-    'Peru',
-    'Philippines (the)',
-    'Pitcairn',
-    'Poland',
-    'Portugal',
-    'Puerto Rico',
-    'Qatar',
-    'Republic of North Macedonia',
-    'Romania',
-    'Russian Federation (the)',
-    'Rwanda',
-    'Réunion',
-    'Saint Barthélemy',
-    'Saint Helena, Ascension and Tristan da Cunha',
-    'Saint Kitts and Nevis',
-    'Saint Lucia',
-    'Saint Martin (French part)',
-    'Saint Pierre and Miquelon',
-    'Saint Vincent and the Grenadines',
-    'Samoa',
-    'San Marino',
-    'Sao Tome and Principe',
-    'Saudi Arabia',
-    'Senegal',
-    'Serbia',
-    'Seychelles',
-    'Sierra Leone',
-    'Singapore',
-    'Sint Maarten (Dutch part)',
-    'Slovakia',
-    'Slovenia',
-    'Solomon Islands',
-    'Somalia',
-    'South Africa',
-    'South Georgia and the South Sandwich Islands',
-    'South Sudan',
-    'Spain',
-    'Sri Lanka',
-    'Sudan (the)',
-    'Suriname',
-    'Svalbard and Jan Mayen',
-    'Sweden',
-    'Switzerland',
-    'Syrian Arab Republic',
-    'Taiwan',
-    'Tajikistan',
-    'Tanzania, United Republic of',
-    'Thailand',
-    'Timor-Leste',
-    'Togo',
-    'Tokelau',
-    'Tonga',
-    'Trinidad and Tobago',
-    'Tunisia',
-    'Turkey',
-    'Turkmenistan',
-    'Turks and Caicos Islands (the)',
-    'Tuvalu',
-    'Uganda',
-    'Ukraine',
-    'United Arab Emirates (the)',
-    'United Kingdom of Great Britain and Northern Ireland (the)',
-    'United States Minor Outlying Islands (the)',
-    'United States of America (the)',
-    'Uruguay',
-    'Uzbekistan',
-    'Vanuatu',
-    'Venezuela (Bolivarian Republic of)',
-    'Viet Nam',
-    'Virgin Islands (British)',
-    'Virgin Islands (U.S.)',
-    'Wallis and Futuna',
-    'Western Sahara',
-    'Yemen',
-    'Zambia',
-    'Zimbabwe',
-    'Åland Islands'];
 
 }

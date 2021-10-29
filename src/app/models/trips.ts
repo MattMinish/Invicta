@@ -6,4 +6,5 @@ export interface Trips {
     startDate?:string;
     startLocation?:string;
     userID?:string;
+    destinationImg?:string;
 }
