@@ -45,7 +45,6 @@ export class TripCardComponent implements OnInit {
           this.trips.forEach(trip => {
             if (trip.destinationImg == "") {
               this.http.post<any>('https://countriesnow.space/api/v0.1/countries/flag/images', { country: trip.destination }).subscribe(data => {
-                console.log(data);
                 trip.destinationImg = data.data.flag;
                 this.tripService.updateTrip(trip);
               })
