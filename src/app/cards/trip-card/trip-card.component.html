@@ -1,6 +1,6 @@
 <div *ngIf="trips.length > 0;else noTrips" class="container">
     <div class="row">
-        <ul class="col-sm-6" *ngFor="let trip of trips">
+        <ul class="col-sm-4" *ngFor="let trip of trips">
             <div class="card">
                 <img class="card-img-top" src="{{trip.destinationImg}}" alt="Card image cap">
                 <h2>{{trip.tripName}}</h2>
@@ -23,13 +23,14 @@
                                 {{country_item}}
                             </option>
                         </select>
+                        <br>
                         <select class="form-control" id="current-destination" [(ngModel)]="trip.destination"
                             name="destination">
                             <option *ngFor="let country_item of countries" value="{{country_item}}">
                                 {{country_item}}
                             </option>
                         </select>
-
+                        <br>
                         <input type="submit" value="Update Item" class="btn btn-info">
                         <button class="btn btn-danger" id="{{trip.id}}" (click)="deleteTrip($event, trip)">Delete Trip</button>
                     </form>
