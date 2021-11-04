@@ -29,6 +29,7 @@ export class TripCardComponent implements OnInit {
   public countries: any = [];
   public user$!: Observable<User | null | undefined>;
   userUID: string = "";
+  private userSubscription!: Subscription;
 
   constructor(public tripService: TripsService, public userService: UserService, private afs: AngularFirestore, private http: HttpClient) {
     this.userUID = userService.getUserID();
@@ -36,19 +37,24 @@ export class TripCardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userUID = this.userService.getUserID();
-    this.tripService.getTrips().subscribe(trips => {
-      this.trips = trips.filter(trip => trip.userID == this.userUID);
-      this.trips.forEach(trip => {
-        if (trip.destinationImg == "") {
-          this.http.post<any>('https://countriesnow.space/api/v0.1/countries/flag/images', { country: trip.destination }).subscribe(data => {
-            console.log(data);
-            trip.destinationImg = data.data.flag;
-            this.tripService.updateTrip(trip);
+    this.userSubscription = this.userService.user$.subscribe(user => {
+      if (user) {
+        this.userUID = this.userService.getUserID();
+        this.tripService.getTrips().subscribe(trips => {
+          this.trips = trips.filter(trip => trip.userID == this.userUID);
+          this.trips.forEach(trip => {
+            if (trip.destinationImg == "") {
+              this.http.post<any>('https://countriesnow.space/api/v0.1/countries/flag/images', { country: trip.destination }).subscribe(data => {
+                console.log(data);
+                trip.destinationImg = data.data.flag;
+                this.tripService.updateTrip(trip);
+              })
+            }
           })
-        }
-      })
+        });
+      }
     });
+
     this.countries = this.tripService.countries;
   }
 
