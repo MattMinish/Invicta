@@ -31,7 +31,7 @@
                         </select>
 
                         <input type="submit" value="Update Item" class="btn btn-info">
-                        <button class="btn btn-danger" (click)="deleteTrip($event, trip)">Delete Trip</button>
+                        <button class="btn btn-danger" id="{{trip.id}}" (click)="deleteTrip($event, trip)">Delete Trip</button>
                     </form>
                 </div>
             </div>
