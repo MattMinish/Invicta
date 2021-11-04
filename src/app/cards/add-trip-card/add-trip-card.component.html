@@ -3,10 +3,11 @@
         <form (ngSubmit)="onSubmit()">
             <div class="form-group">
                 <label for="trip-name input__label">Trip Name</label>
-                <input type="text" class="form-control input__field" id="trip-name" required placeholder="Bachelor's Party Trip" [(ngModel)]="trip.tripName" name="tripName">
+                <input type="text" class="form-control input__field" id="trip-name" required
+                    placeholder="Bachelor's Party Trip" [(ngModel)]="trip.tripName" name="tripName">
             </div>
             <label for="current-country">Current Country</label>
-            <select class="form-control" id="current-country" [(ngModel)]="trip.startLocation" name="startLocation"> 
+            <select class="form-control" id="current-country" [(ngModel)]="trip.startLocation" name="startLocation">
                 <option *ngFor="let country_item of countries" value="{{country_item}}">
                     {{country_item}}
                 </option>
@@ -17,26 +18,23 @@
                     {{country_item}}
                 </option>
             </select>
-            <ngb-datepicker #dp (dateSelect)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t" outsideDays="hidden" name="calendar">
-            </ngb-datepicker>
-            
-            <ng-template #t let-date let-focused="focused" name="insideCalendar">
-              <span class="custom-day"
-                    [class.focused]="focused"
-                    [class.range]="isRange(date)"
-                    [class.faded]="isHovered(date) || isInside(date)"
-                    (mouseenter)="hoveredDate = date"
-                    (mouseleave)="hoveredDate = null">
-                {{ date.day }}
-              </span>
-            </ng-template>
-<<<<<<< HEAD
-            
-            <input type="submit" value="Submit" class="btn btn-dark" name="submitButton">
-=======
             <br>
-            <input type="submit" value="Submit" class="btn btn-dark">
->>>>>>> b5dbff8706c5cd9bbcbb6528c356e85d71cedbe2
+            <div class="calendar">
+                <ngb-datepicker #dp (dateSelect)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t"
+                    outsideDays="hidden" name="calendar">
+                </ngb-datepicker>
+
+                <ng-template #t let-date let-focused="focused" name="insideCalendar">
+                    <span class="custom-day" [class.focused]="focused" [class.range]="isRange(date)"
+                        [class.faded]="isHovered(date) || isInside(date)" (mouseenter)="hoveredDate = date"
+                        (mouseleave)="hoveredDate = null">
+                        {{ date.day }}
+                    </span>
+                </ng-template>
+            </div>
+
+            <br>
+            <input type="submit" value="Submit" class="btn btn-dark" name="submitButton">
         </form>
     </div>
 </div>

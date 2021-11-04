@@ -17,8 +17,15 @@
   background-color: rgba(2, 117, 216, 0.5);
 }
 
+.calendar{
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .card {
   width: 50%;
+  margin-left: auto;
+  margin-right: auto;
   background: var(--color-background);
   padding: calc(4 * var(--size-bezel));
   margin-top: calc(4 * var(--size-bezel));
