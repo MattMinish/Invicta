@@ -3,6 +3,7 @@ import { User } from '../models/user';
 import { UserService } from '../services/user.service';
 import { Observable, Subscription } from 'rxjs';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
+import { TripsService } from '../services/trips.service';
 
 
 @Component({
@@ -13,11 +14,12 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat
 export class TrippageComponent implements OnInit {
 
   user$!: Observable<User | null | undefined>;
-  constructor(public userService: UserService, private afs: AngularFirestore) {
+  constructor(public userService: UserService, private afs: AngularFirestore, public tripService: TripsService) {
 
    }
 
   ngOnInit(): void {
+    this.tripService.getRestrictions();
   }
 
 }
