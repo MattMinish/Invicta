@@ -37,29 +37,9 @@ export class TripsService {
   }
 
   getRestrictions() {
-
-    const httpOptions = {
-      headers: {
-        'Api-Version': '1',
-        'Authorization': 'ApiKey cRBIlf.sYQwOLH5LcPUdjmPXbmnUdJueOxHLkhn',
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',                 // cors error says this 'Access-Control-Allow-Origin': '*' needs to be in the header and it is so im not sure whats going on
-        'Access-Control-Allow-methods': 'GET,POST,OPTIONS,DELETE,PUT',
-        'Access-Control-Allow-Credentials': 'true',
-        'Access-Control-Allow-Headers': 'Content-Type'
-      },
-      params: {
-        'origin': 'FR',
-        'destination': 'ES',
-        'origin_type': 'country_code',
-        'destination_type': 'country_code',
-        'date': '2020-10-15'
-      }
-    };
-
-    this.http.get('https://api.travelperk.com/travelsafe/restrictions', httpOptions).subscribe(data => {
+    this.http.get('http://localhost:3000/getRestrictions').subscribe(data => {
       console.log(data);
-    })
+    });
   }
 
   getTrips() {

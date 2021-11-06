@@ -18,7 +18,7 @@ app.listen(3000, () => {
 
 // define a sendmail endpoint, which will send emails and response with the corresponding status
 app.post("/sendmail", (req, res) => {
-    console.log("request came");
+    console.log("mail request came");
     let user = req.body;
     transport.sendMail(mailOptions, (error, info) => {
         if (error) {
@@ -37,6 +37,29 @@ app.post("/sendmail", (req, res) => {
     //     }
     // });
 });
+
+//define a getRestrictions endpoint 
+app.get("/getRestrictions", (req, res) => {
+    console.log("restrictions request came");
+    const fetch = require('node-fetch');
+
+    const url = 'https://api.travelperk.com/travelsafe/restrictions?origin=FR&destination=ES&origin_type=country_code&destination_type=country_code&date=2020-10-16';
+    const options = {
+        method: 'GET',
+        headers: {
+            Accept: 'application/json',
+            'Api-Version': '1',
+            Authorization: 'ApiKey cRBIlf.sYQwOLH5LcPUdjmPXbmnUdJueOxHLkhn',
+            'Accept-Language': 'en'
+        }
+    };
+
+    fetch(url, options)
+        .then(res => res.json())
+        .then(json => console.log(json))
+        .catch(err => console.error('error:' + err));
+        return json;
+})
 
 
 var transport = nodemailer.createTransport({
