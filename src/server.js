@@ -43,13 +43,13 @@ app.get("/getRestrictions", (req, res) => {
     console.log("restrictions request came");
     const fetch = require('node-fetch');
 
-    const url = 'https://api.travelperk.com/travelsafe/restrictions?origin=FR&destination=ES&origin_type=country_code&destination_type=country_code&date=2020-10-16';
+    const url = 'https://api.sandbox-travelperk.com/travelsafe/restrictions?destination=ES&destination_type=country_code&origin=DE&origin_type=country_code&date=2020-10-15';
     const options = {
         method: 'GET',
         headers: {
             Accept: 'application/json',
             'Api-Version': '1',
-            Authorization: 'ApiKey cRBIlf.sYQwOLH5LcPUdjmPXbmnUdJueOxHLkhn',
+            Authorization: 'ApiKey  IKrWbv.9O1htwMpRTU7W4uC6ygz5y5kLWYm3Mxh',
             'Accept-Language': 'en'
         }
     };
@@ -58,7 +58,7 @@ app.get("/getRestrictions", (req, res) => {
         .then(res => res.json())
         .then(json => console.log(json))
         .catch(err => console.error('error:' + err));
-        return json;
+        return res;
 })
 
 
