@@ -29,12 +29,12 @@ describe('Trip Page', () => {
             .should('have.value', 'Cypress Test Trip')
 
         cy.get('select[name=startLocation]')
-            .select('Aruba')
-            .should('have.value', 'Aruba')
+            .select('Bangladesh')
+            .should('have.value', 'Bangladesh')
 
         cy.get('select[name=destination]')
-            .select('Sweden')
-            .should('have.value', 'Sweden')
+            .select('Jamaica')
+            .should('have.value', 'Jamaica')
 
         cy.get('ngb-datepicker[name=calendar]')
             .get('*[class^="ngb-dp-content ngb-dp-months"]')
