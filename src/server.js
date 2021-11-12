@@ -41,6 +41,7 @@ app.post("/sendmail", (req, res) => {
 //define a getRestrictions endpoint 
 app.get("/getRestrictions", (req, res) => {
     console.log("restrictions request came");
+    
     const fetch = require('node-fetch');
 
     const url = 'https://api.sandbox-travelperk.com/travelsafe/restrictions?destination=ES&destination_type=country_code&origin=DE&origin_type=country_code&date=2020-10-15';
@@ -54,11 +55,12 @@ app.get("/getRestrictions", (req, res) => {
         }
     };
 
+    res.setHeader('Content-Type', 'application/json');
     fetch(url, options)
         .then(res => res.json())
-        .then(json => console.log(json))
+        //.then(json => console.log(json))
+        .then(json => res.send(json))
         .catch(err => console.error('error:' + err));
-        return res;
 })
 
 

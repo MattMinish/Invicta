@@ -15,6 +15,7 @@ export class TripsService {
   trips: Observable<Trips[]>;
   tripDoc: AngularFirestoreDocument<Trips>;
   countries: any = [];
+  //restriction$: Observable<restriction | null | undefined> | undefined;
 
 
 
