@@ -1,5 +1,5 @@
 import firebase from 'firebase/compat/app';
-import { getFirestore, collection, getDocs, query, where, setDoc, doc, deleteDoc, updateDoc } from 'firebase/firestore/lite';
+import { getFirestore, collection, getDocs, getDoc, query, where, setDoc, doc, deleteDoc, updateDoc } from 'firebase/firestore/lite';
 import 'firebase/firestore';
 import { assert } from 'console';
 import { SSL_OP_EPHEMERAL_RSA } from 'constants';
@@ -18,6 +18,7 @@ const app = firebase.initializeApp(config);
 const db = getFirestore(app);
 
 async function addTripTest() {
+    console.log('Adding a new test trip to the database with name: FirebaseTestTrip')
     await setDoc(doc(db, 'trips', 'FirebaseTestTrip'), {
         destination: 'Sweden',
         endDate: '12/12/2022',
@@ -28,25 +29,40 @@ async function addTripTest() {
 }
 
 async function getTripTest(id) {
+    //console.log('Querying the new test trip')
     const tripRef = collection(db, 'trips');
     const q = query(tripRef, where('tripName', '==', 'FirebaseTestTrip'));
     const querySnapshot = await getDocs(q);
     if (!querySnapshot.empty) {
         querySnapshot.forEach((doc) => {
-            console.log(doc.id, ' => ', doc.data());
+            console.log('Found test trip with name: ' + doc.data().tripName)
+            //console.log(doc.id, ' => ', doc.data());
         });
+
     }
     else {
-        console.log('None found with that name');
+        console.log('No trip found with name: FirebaseTestTrip');
     }
 }
 
 async function removeTripTest() {
+    console.log('Removing test trip')
     await deleteDoc(doc(db, 'trips', 'FirebaseTestTrip'));
 }
 
 async function getTripLocation() {
-
+    const tripRef = doc(db, 'trips', 'FirebaseTestTrip');
+    //const q = query(tripRef, where('tripName', '==', 'FirebaseTestTrip'));
+    const querySnapshot = await getDoc(tripRef);
+    var data = querySnapshot.data()
+    var startLocation = data.startLocation;
+    
+    if(startLocation == 'Albania'){
+        console.log('Got trip location: Albania')
+    }
+    else{
+        console.log('Failed to get correct trip location')
+    }
 }
 
 async function modifyTripTest() {
@@ -55,6 +71,7 @@ async function modifyTripTest() {
         startLocation: 'Albania'
     });
 
+    console.log('Updated startLocation from Sweden to Albania')
 }
 
 async function getTrips(db) {
@@ -73,14 +90,24 @@ function sleep(milliseconds) {
     } while (currentDate - date < milliseconds);
 }
 
-
-// to do:
-    // fix promise rejection error
-
 addTripTest();
-sleep(1000);
-getTripTest('FirebaseTestTrip');
-sleep(1000);
-modifyTripTest();
-sleep(1000);
-removeTripTest();
+
+setTimeout(function() {
+    getTripTest('FirebaseTestTrip');
+}, 1000)
+
+setTimeout(function() {
+    modifyTripTest();
+}, 2000)
+
+setTimeout(function() {
+    getTripLocation();
+}, 2500)
+
+setTimeout(function() {
+    removeTripTest();
+}, 3000)
+
+setTimeout(function() {
+    getTripTest('FirebaseTestTrip');
+}, 3500)
