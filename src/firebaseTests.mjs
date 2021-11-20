@@ -28,7 +28,7 @@ async function addTripTest() {
     });
 }
 
-async function getTripTest(id) {
+async function getTripTest() {
     //console.log('Querying the new test trip')
     const tripRef = collection(db, 'trips');
     const q = query(tripRef, where('tripName', '==', 'FirebaseTestTrip'));
@@ -58,7 +58,7 @@ async function getTripLocation() {
     var startLocation = data.startLocation;
     
     if(startLocation == 'Albania'){
-        console.log('Got trip location: Albania')
+        console.log('Successfully got updated trip location: Albania')
     }
     else{
         console.log('Failed to get correct trip location')
@@ -80,6 +80,35 @@ async function getTrips(db) {
     const cityList = citySnapshot.docs.map(doc => doc.data());
     console.log('cities: ' + cityList.values());
     return cityList;
+}
+
+async function addUserTest(){
+    console.log('Adding a new test user to the database with name: TestUser')
+    await setDoc(doc(db, 'users', 'TestUser'), {
+        displayName: 'Test User',
+        email: 'testEmail@gmail.com'
+    });
+}
+
+async function removeUserTest() {
+    console.log('Removing test user')
+    await deleteDoc(doc(db, 'users', 'TestUser'));
+}
+
+async function getUserTest() {
+    const tripRef = collection(db, 'users');
+    const q = query(tripRef, where('displayName', '==', 'Test User'));
+    const querySnapshot = await getDocs(q);
+    if (!querySnapshot.empty) {
+        querySnapshot.forEach((doc) => {
+            console.log('Found user with name: ' + doc.data().displayName)
+            //console.log(doc.id, ' => ', doc.data());
+        });
+
+    }
+    else {
+        console.log('No user found with name: TestUser');
+    }
 }
 
 function sleep(milliseconds) {
@@ -109,5 +138,21 @@ setTimeout(function() {
 }, 3000)
 
 setTimeout(function() {
-    getTripTest('FirebaseTestTrip');
+    getTripTest();
 }, 3500)
+
+setTimeout(function() {
+    addUserTest();
+}, 4000)
+
+setTimeout(function() {
+    getUserTest();
+}, 4500)
+
+setTimeout(function() {
+    removeUserTest();
+}, 5000)
+
+setTimeout(function() {
+    getUserTest();
+}, 5500)

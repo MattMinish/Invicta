@@ -15,6 +15,11 @@ describe('About Page', () => {
         cy.location('pathname').should('eq', '/trips')
         cy.go('back')
 
+        // Account 
+        cy.contains('Account').click()
+        cy.location('pathname').should('eq', '/login')
+        cy.go('back')
+
         // Login 
         cy.contains('Login').click()
         cy.location('pathname').should('eq', '/login')

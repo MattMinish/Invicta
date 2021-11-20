@@ -19,5 +19,16 @@ describe('Home Page', () => {
         cy.contains('Login').click()
         cy.location('pathname').should('eq', '/login')
         cy.go('back')
+
+        // Account 
+        cy.contains('Account').click()
+        cy.location('pathname').should('eq', '/login')
+        cy.go('back')
+
+    });
+
+        it('Contains Image', () => {
+        cy.get('[alt="Responsive image"]').trigger('mouseover', { force: true })
+        
     });
 });

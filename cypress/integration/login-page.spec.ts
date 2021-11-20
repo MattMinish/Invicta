@@ -21,19 +21,39 @@ describe('Login Page', () => {
         cy.go('back')
     });
 
+    it('Test User Not Logged in ', () => {
+
+        cy.visit('/login'); // go to the home page
+        cy.contains('Howdy, GUEST')
+
+    });
+
+    it('Login Button', () => {
+
+        cy.visit('/login'); // go to the home page
+        cy.contains('Log in with Google')
+    });
     // it('User Login', () => {
 
+    //     const stub = cy.stub()
     //     cy.visit('/login');
 
-    //     cy.get('input[name=username]')
-    //         .type('admin')
-    //         .should('have.value', 'admin')
+    //     cy.contains('Log in with Google').click()
+    //     cy.on('window:alert', stub)
+    //     cy.url().should('contain', 'accounts.google.com')  
+    //         .get('input[type="email"]').type('communicationsByInvicta@gmail.com{enter}')
+    //     // cy.window().then(function(p){
+    //     //     cy.url().should('contain', 'accounts.google.com')  
+    //     //         .get('input[type="email"]').type('communicationsByInvicta@gmail.com{enter}')
+    //     // });
+        
+    //     //cy.contains('Email or phone').click().type('communicationsByInvicta@gmail.com{enter}')
 
-    //     cy.get('input[name=password]')
-    //         .type('password')
-    //         .should('have.value', 'password')
+    //     // cy.get('input[name=password]')
+    //     //     .type('password')
+    //     //     .should('have.value', 'password')
 
-    //     cy.contains('login').click( {force: true })
+    //     // cy.contains('login').click( {force: true })
 
     // });
 });

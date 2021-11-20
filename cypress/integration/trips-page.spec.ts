@@ -1,4 +1,20 @@
 /// <reference types="Cypress" />
+import firebase from 'firebase/compat/app';
+import { getFirestore, collection, getDocs, getDoc, query, where, setDoc, doc, deleteDoc, updateDoc } from 'firebase/firestore/lite';
+import 'firebase/firestore';
+
+const config = {
+    apiKey: 'AIzaSyB-RyFBh_eddULlQI7hFEonsqGbCMVhrn4',
+    authDomain: 'invicta-5ec44.firebaseapp.com',
+    projectId: 'invicta-5ec44',
+    storageBucket: 'invicta-5ec44.appspot.com',
+    messagingSenderId: '363429658409',
+    appId: '1:363429658409:web:95688b2d8f8804efe88138',
+    measurementId: 'G-L76EGCYRWY'
+};
+
+const app = firebase.initializeApp(config);
+const db = getFirestore(app);
 
 describe('Trip Page', () => {
     it('Nav bar links', () => {
@@ -15,10 +31,16 @@ describe('Trip Page', () => {
         cy.location('pathname').should('eq', '/about')
         cy.go('back')
 
+        // Account 
+        cy.contains('Account').click()
+        cy.location('pathname').should('eq', '/login')
+        cy.go('back')
+
         // Login 
         cy.contains('Login').click()
         cy.location('pathname').should('eq', '/login')
         cy.go('back')
+        
     });
     it('Adding Trip', () => {
 
@@ -45,17 +67,42 @@ describe('Trip Page', () => {
         cy.get('input[name=submitButton]')
             .click({ force: true })
 
-        cy.contains('Cypress Test Trip')
+        getTripTest()
     });
 
     it('Removing Trip', () => {
+        async function removeTripTest() {
+            console.log('Removing test trip')
+            await deleteDoc(doc(db, 'trips', 'Cypress Test Trip'));
+        }
 
-        cy.visit('/trips');
+        removeTripTest()
 
-        cy.get('*[class^="container trips"]')
-            .get('div').contains('Cypress Test Trip')
-                .contains('*[class^="fa fa-pencil"]').click({ force: true })
-            //.get('h2').contains('Cypress Test Trip')
-            //.get('*[class^="fa fa-pencil"]').click({ force: true })
     });
+    // it('Removing Trip', () => {
+
+    //     cy.visit('/trips');
+
+    //     cy.get('*[class^="container trips"]')
+    //         .get('div').contains('Cypress Test Trip')
+    //         .contains('*[class^="fa fa-pencil"]').click({ force: true })
+    //     //.get('h2').contains('Cypress Test Trip')
+    //     //.get('*[class^="fa fa-pencil"]').click({ force: true })
+    // });
 });
+
+async function getTripTest() {
+    const tripRef = collection(db, 'trips');
+    const q = query(tripRef, where('tripName', '==', 'Cypress Test Trip'));
+    const querySnapshot = await getDocs(q);
+    if (!querySnapshot.empty) {
+        querySnapshot.forEach((doc) => {
+            console.log('Found test trip with name: ' + doc.data().tripName)
+            //console.log(doc.id, ' => ', doc.data());
+        });
+
+    }
+    else {
+        console.log('No trip found with name: Cypress Test Trip');
+    }
+}
