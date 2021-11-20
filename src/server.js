@@ -79,6 +79,6 @@ var mailOptions = {
     to: 'grm16@students.uwf.edu',
     subject: 'Invicta Travel Update',
     text: 'This is an update regarding your travel plans to: country',
-    html: '<b>Hey there! </b><br> This is a test message containing no useful information because the program does not work properly yet<br/> '
+    html: '<b>Hey there! </b><br> This is a test message sent from the automated email notification service<br/> '
 };
 
