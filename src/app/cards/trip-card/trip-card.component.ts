@@ -25,6 +25,8 @@ export class TripCardComponent implements OnInit {
     id: "",
     userID: "",
     destinationImg: "",
+    authorization_status: "",
+    restrictions_summary: "",
   }
   public countries: any = [];
   public user$!: Observable<User | null | undefined>;
@@ -48,6 +50,18 @@ export class TripCardComponent implements OnInit {
                 trip.destinationImg = data.data.flag;
                 this.tripService.updateTrip(trip);
               })
+            }
+            if (trip.authorization_status == "") {
+              this.http.get<any>('http://localhost:3000/getRestrictions').subscribe(data => {
+                trip.authorization_status = data.authorization_status;
+                this.tripService.updateTrip(trip);
+              });
+            }
+            if (trip.restrictions_summary == "") {
+              this.http.get<any>('http://localhost:3000/getRestrictions').subscribe(data => {
+                trip.restrictions_summary = data.summary;
+                this.tripService.updateTrip(trip);
+              });
             }
           })
         });
@@ -85,6 +99,8 @@ export class TripCardComponent implements OnInit {
       startLocation: "",
       tripName: "",
       destinationImg: "",
+      authorization_status: "",
+      restrictions_summary: "",
     }
   }
 

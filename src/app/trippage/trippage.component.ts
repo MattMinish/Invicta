@@ -19,7 +19,6 @@ export class TrippageComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.tripService.getRestrictions();
   }
 
 }

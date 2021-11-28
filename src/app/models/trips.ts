@@ -7,4 +7,6 @@ export interface Trips {
     startLocation?:string;
     userID?:string;
     destinationImg?:string;
+    authorization_status?:string;
+    restrictions_summary?:string;
 }

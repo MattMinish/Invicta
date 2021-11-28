@@ -20,6 +20,8 @@ export class AddTripCardComponent implements OnInit {
     tripName: "",
     userID: "",
     destinationImg: "",
+    authorization_status: "",
+    restrictions_summary: "",
   }
   hoveredDate: NgbDate | null = null;
 
@@ -53,6 +55,8 @@ export class AddTripCardComponent implements OnInit {
         startLocation: "",
         tripName: "",
         destinationImg: "",
+        authorization_status: "",
+        restrictions_summary: "",
       }
     }
   }

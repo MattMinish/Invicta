@@ -7,6 +7,7 @@
                 <p>Destination: {{trip.destination}}</p>
                 <p>Start Location: {{trip.startLocation}}</p>
                 <p>Trip Dates: {{trip.startDate}} - {{trip.endDate}}</p>
+                <p>restrictions summary: {{trip.restrictions_summary}}</p>
                 <div class="secondary-content">
                     <i (click)="editTrip($event, trip)" class="fa fa-pencil"></i>
                     <i *ngIf="editState && tripToEdit.id == trip.id" (click)="clearState()" class="fa fa-compress"></i>

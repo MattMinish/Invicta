@@ -40,8 +40,7 @@ export class UserService {
   }
 
   /** Authenticates the user with Google */
-  async googleSignin() {
-    console.log("here");  
+  async googleSignin() { 
     const provider = new firebase.auth.GoogleAuthProvider();
     const credential = await this.afAuth.signInWithPopup(provider);
     return this.updateUserData(credential.user);
