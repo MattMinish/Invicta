@@ -48,13 +48,13 @@ export class TripCardComponent implements OnInit {
             if (trip.destinationImg == "") {
               this.http.post<any>('https://countriesnow.space/api/v0.1/countries/flag/images', { country: trip.destination }).subscribe(data => {
                 trip.destinationImg = data.data.flag;
-                this.tripService.updateTrip(trip);
+                // this.tripService.updateTrip(trip);
               })
             }
             if (trip.authorization_status == "") {
               this.http.get<any>('http://localhost:3000/getRestrictions').subscribe(data => {
                 trip.authorization_status = data.authorization_status;
-                this.tripService.updateTrip(trip);
+                // this.tripService.updateTrip(trip);
               });
             }
             if (trip.restrictions_summary == "") {

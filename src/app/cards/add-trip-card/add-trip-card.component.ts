@@ -4,6 +4,8 @@ import { Trips } from 'src/app/models/trips';
 import { NgbDate, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from 'src/app/services/user.service';
 import { HttpClient } from '@angular/common/http';
+import { Observable, Subscription } from 'rxjs';
+import { User } from 'src/app/models/user';
 
 
 @Component({
@@ -29,6 +31,8 @@ export class AddTripCardComponent implements OnInit {
   toDate: NgbDate | null = null;
   userUID: string = "";
   public countries: any = [];
+  public user$!: Observable<User | null | undefined>;
+  private userSubscription!: Subscription;
 
 
   constructor(public tripService: TripsService, calendar: NgbCalendar, public userService: UserService, private http: HttpClient) {
@@ -39,6 +43,12 @@ export class AddTripCardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.userSubscription = this.userService.user$.subscribe(user => {
+      if (user) {
+        this.userUID = this.userService.getUserID();
+        console.log(this.userUID);
+      }
+    });
     this.countries = this.tripService.countries;
   }
 
@@ -47,7 +57,9 @@ export class AddTripCardComponent implements OnInit {
       && this.trip.startLocation != " ") {
       this.trip.startDate = `${this.fromDate.month}/${this.fromDate.day}/${this.fromDate.year}`;
       this.trip.endDate = `${this.toDate?.month}/${this.toDate?.day}/${this.toDate?.year}`;
+      this.trip.userID = this.userUID;
       this.tripService.addTrip(this.trip);
+      console.log(this.userUID);
       this.trip = {
         destination: "",
         endDate: "",
