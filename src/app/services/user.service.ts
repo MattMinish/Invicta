@@ -18,6 +18,7 @@ export class UserService {
 
   user$: Observable<User | null | undefined>;
   userID : string = "";
+  isLoggedIn : Boolean = false;
 
   constructor(private afAuth: AngularFireAuth,private afs: AngularFirestore,private router: Router) {
       // Get the auth state, then fetch the Firestore user document or return null
@@ -26,13 +27,19 @@ export class UserService {
             // Logged in
           if (user) {
             this.userID = user.uid;
+            this.isLoggedIn = true;
             return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
           } else {
             // Logged out
+            this.isLoggedIn = false;
             return of(null);
           }
         })
       );
+  }
+
+  getLoggedStatus(){
+    return this.isLoggedIn;
   }
 
   getUserID(){
@@ -50,6 +57,7 @@ export class UserService {
   /** Signs the user out of Google */
   async signOut() {
     await this.afAuth.signOut();
+    this.isLoggedIn = false;
     this.router.navigate(['/']);
   }
 
