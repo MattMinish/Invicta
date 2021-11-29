@@ -76,7 +76,7 @@ var transport = nodemailer.createTransport({
 
 var mailOptions = {
     from: '"Invicta" communicationsByInvicta@gmail.com',
-    to: 'grm16@students.uwf.edu',
+    to: 'mattminish@gmail.com',
     subject: 'Invicta Travel Update',
     text: 'This is an update regarding your travel plans to: country',
     html: '<b>Hey there! </b><br> This is a test message sent from the automated email notification service<br/> '

@@ -1,7 +1,9 @@
 import { Injectable, NgModule } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class MessageService {
 
   constructor(private http: HttpClient) { }
