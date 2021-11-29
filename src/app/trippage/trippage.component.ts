@@ -34,6 +34,7 @@ export class TrippageComponent implements OnInit {
             this.http.get<any>('http://localhost:3000/getRestrictions').subscribe(data => {
               if (trip.authorization_status != data.authorization_status) {
                 trip.authorization_status = data.authorization_status;
+                trip.restrictions_summary = data.summary;
                 this.tripService.updateTrip(trip);
               }
             });
