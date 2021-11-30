@@ -40,7 +40,7 @@ app.post("/sendmail", (req, res) => {
 
 //define a getRestrictions endpoint 
 app.get("/getRestrictions", (req, res) => {
-    console.log("restrictions request came");
+    //console.log("restrictions request came");
     
     const fetch = require('node-fetch');
 
@@ -78,7 +78,7 @@ var mailOptions = {
     from: '"Invicta" communicationsByInvicta@gmail.com',
     to: 'mattminish@gmail.com',
     subject: 'Invicta Travel Update',
-    text: 'This is an update regarding your travel plans to: country',
-    html: '<b>Hey there! </b><br> This is a test message sent from the automated email notification service<br/> '
+    text: 'This is an update regarding your travel plans',
+    html: '<b>Hey there! </b><br> Your trips authorization status has changed log in to see updates.<br/> '
 };
 

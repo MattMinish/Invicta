@@ -15,10 +15,6 @@ export class TripsService {
   trips: Observable<Trips[]>;
   tripDoc: AngularFirestoreDocument<Trips>;
   countries: any = [];
-  //restriction$: Observable<restriction | null | undefined> | undefined;
-
-
-
 
   constructor(public afs: AngularFirestore, private http: HttpClient) {
     this.tripsCollection = this.afs.collection<Trips>('trips', ref => ref.orderBy('tripName', 'asc'));

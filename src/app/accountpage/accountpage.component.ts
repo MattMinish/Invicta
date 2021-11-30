@@ -25,7 +25,7 @@ export class AccountpageComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  sendMessage(body: any){
+  sendMessage(body: any) {
     console.log(body)
     this.messageService.sendMessage(body)
     //this.messageService.sendMessage(body)

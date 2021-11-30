@@ -59,7 +59,6 @@ export class AddTripCardComponent implements OnInit {
       this.trip.endDate = `${this.toDate?.month}/${this.toDate?.day}/${this.toDate?.year}`;
       this.trip.userID = this.userUID;
       this.tripService.addTrip(this.trip);
-      console.log(this.userUID);
       this.trip = {
         destination: "",
         endDate: "",
