@@ -8,5 +8,5 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 
 ## File Structure
 ProjectReport/projectreport.pdf : This folder contains the project report pdf
-Manuals/usermanual.pdf : This is the user manual
-Manuals/installationinstructions.pdf : this is how to set up the project on your own system 
+<br>Manuals/usermanual.pdf : This is the user manual
+<br>Manuals/installationinstructions.pdf : this is how to set up the project on your own system 
