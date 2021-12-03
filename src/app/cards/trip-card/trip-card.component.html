@@ -1,32 +1,47 @@
-<div class="card">
-    <div class="card-body">
-        <div class="form-group">
-            <label for="trip-name">Trip Name</label>
-            <input type="title" class="form-control" id="trip-name" placeholder="Bachelor's Party Trip">
-        </div>
-        <label for="current-country">Current Country</label>
-        <select class="form-control" id="current-country" [(ngModel)]="countries">
-            <option *ngFor="let country_item of countries">
-                {{country_item}}
-            </option>
-        </select>
-        <label for="current-country">Destination</label>
-        <select class="form-control" id="current-destination">
-            <option *ngFor="let country_item of countries">
-                {{country_item}}
-            </option>
-        </select>
+<div *ngIf="trips.length > 0;else noTrips" class="container">
+    <div class="row">
+        <ul class="col-sm-4" *ngFor="let trip of trips">
+            <div class="card">
+                <img class="card-img-top" src="{{trip.destinationImg}}" alt="Card image cap">
+                <h2>{{trip.tripName}}</h2>
+                <p>Destination: {{trip.destination}}</p>
+                <p>Start Location: {{trip.startLocation}}</p>
+                <p>Trip Dates: {{trip.startDate}} - {{trip.endDate}}</p>
+                <p>authorization status: {{trip.authorization_status}}</p>
+                <p>restrictions summary: {{trip.restrictions_summary}}</p>
+                <div class="secondary-content">
+                    <i (click)="editTrip($event, trip)" class="fa fa-pencil"></i>
+                    <i *ngIf="editState && tripToEdit.id == trip.id" (click)="clearState()" class="fa fa-compress"></i>
+                </div>
+                <div *ngIf="editState && tripToEdit.id == trip.id">
+                    <form (ngSubmit)="updateTrip(trip)">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="trip-name" required
+                                placeholder="Bachelor's Party Trip" [(ngModel)]="trip.tripName" name="tripName">
+                        </div>
+                        <select class="form-control" id="current-country" [(ngModel)]="trip.startLocation"
+                            name="startLocation">
+                            <option *ngFor="let country_item of countries" value="{{country_item}}">
+                                {{country_item}}
+                            </option>
+                        </select>
+                        <br>
+                        <select class="form-control" id="current-destination" [(ngModel)]="trip.destination"
+                            name="destination">
+                            <option *ngFor="let country_item of countries" value="{{country_item}}">
+                                {{country_item}}
+                            </option>
+                        </select>
+                        <br>
+                        <input type="submit" value="Update Item" class="btn btn-info">
+                        <button class="btn btn-danger" id="{{trip.id}}" (click)="deleteTrip($event, trip)">Delete Trip</button>
+                    </form>
+                </div>
+            </div>
+        </ul>
     </div>
 </div>
-<div class="card">
-    <div class="card-body">
-        <label for="user-trips">Your Trips</label>
-        <div class="form-group">
-            <select class="form-control" id="current-trips" [(ngModel)]="trips">
-                <option *ngFor="let trip_item of trips">
-                    {{trip_item}}
-                </option>
-            </select>
-        </div>
-    </div>
-</div>
+
+<ng-template #noTrips>
+    <p>There are no trips.</p>
+</ng-template>

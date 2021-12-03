@@ -1,0 +1,43 @@
+
+.custom-day {
+  text-align: center;
+  padding: 0.185rem 0.25rem;
+  display: inline-block;
+  height: 2rem;
+  width: 2rem;
+}
+.custom-day.focused {
+  background-color: #e6e6e6;
+}
+.custom-day.range, .custom-day:hover {
+  background-color: rgb(2, 117, 216);
+  color: white;
+}
+.custom-day.faded {
+  background-color: rgba(2, 117, 216, 0.5);
+}
+
+.calendar{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.card {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  background: var(--color-background);
+  padding: calc(4 * var(--size-bezel));
+  margin-top: calc(4 * var(--size-bezel));
+  border-radius: var(--size-radius);
+  border: 3px solid var(--color-shadow, currentColor);
+  box-shadow: .5rem .5rem 0 var(--color-shadow, currentColor);
+}
+
+.card--inverted{
+  --color-background: var(--color-dark);
+    color: var(--color-light);
+  --color-shadow: var(--color-accent);
+}
+
+

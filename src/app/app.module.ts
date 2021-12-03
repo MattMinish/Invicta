@@ -11,23 +11,41 @@ import { FormsModule } from '@angular/forms';
 import { TripCardComponent } from './cards/trip-card/trip-card.component';
 import { TrippageComponent } from './trippage/trippage.component';
 
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { environment } from 'src/environments/environment';
+import { AddTripCardComponent } from './cards/add-trip-card/add-trip-card.component';
+import { TripsService } from './services/trips.service';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AccountpageComponent } from './accountpage/accountpage.component';
+
+import { HttpClientModule } from '@angular/common/http'
+
+
 @NgModule({
   declarations: [
     AppComponent,
-    
     HomepageComponent,
     NavbarComponent,
     AboutComponent,
     LoginComponent,
     TripCardComponent,
-    TrippageComponent
+    TrippageComponent,
+    AddTripCardComponent,
+    AccountpageComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireAuthModule,
+    HttpClientModule,
+    NgbModule,
   ],
-  providers: [],
+  providers: [TripsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

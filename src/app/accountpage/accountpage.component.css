@@ -1,5 +1,8 @@
+#info {
+    text-align: center;
+}
 body{
-    background: url("../../assets/map.jpg");
+    background: url("../../assets/travel.jpg");
     background-position:center center;
     width:84vw;
     height:92vh;

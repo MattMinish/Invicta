@@ -1,0 +1,22 @@
+<header class="py-0">
+    <div class="container">
+        <app-navbar></app-navbar>
+    </div>
+</header>
+
+<body class=center>
+    <div id="info" *ngIf="userService.user$ | async as user">
+        <br>
+        <div class="container">
+            <section id="content">
+                <form action="">
+                    <h1>Howdy, {{ user.displayName }}</h1>
+                    <p>Email: {{ user.email }} </p>
+                    <p>UID: {{ user.uid }}</p>
+                    
+                </form>
+            </section>
+        </div>
+    </div>
+    <!-- <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br> -->
+</body>

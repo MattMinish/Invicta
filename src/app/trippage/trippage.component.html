@@ -1,12 +1,21 @@
 <header class="py-0">
-    <div class="container">
-      <app-navbar></app-navbar>
-    </div>
-  
-  </header>
-
-  <div class="container addTrip">
-      <h1>Add Trip</h1>
-      <app-trip-card></app-trip-card>
+  <div class="container">
+    <app-navbar></app-navbar>
   </div>
+</header>
 
+<div>
+  <div class="container">
+    <div class="container addTrip">
+      <h1>Add Trip</h1>
+      <app-add-trip-card></app-add-trip-card>
+    </div>
+  </div>
+  <br><br>
+  <div class="container trips ">
+    <h1>Trips</h1>
+    <div>
+      <app-trip-card></app-trip-card>
+    </div>
+  </div>
+</div>
