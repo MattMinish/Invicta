@@ -57,7 +57,12 @@ export class AddTripCardComponent implements OnInit {
       && this.trip.startLocation != " ") {
       this.trip.startDate = `${this.fromDate.month}/${this.fromDate.day}/${this.fromDate.year}`;
       this.trip.endDate = `${this.toDate?.month}/${this.toDate?.day}/${this.toDate?.year}`;
-      this.trip.userID = this.userUID;
+      this.trip.userID = this.userUID;              
+      // this.http.get<any>('http://localhost:3000/getRestrictions').subscribe(data => {
+      //   this.trip.authorization_status = data.authorization_status;
+      //   this.trip.restrictions_summary = data.summary;
+      //   this.tripService.updateTrip(this.trip);
+      // });
       this.tripService.addTrip(this.trip);
       this.trip = {
         destination: "",
